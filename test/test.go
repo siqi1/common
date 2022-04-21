@@ -26,9 +26,9 @@ func NewTest[I, E any, T TestCase[I, E]](t *testing.T, fn func(I) E) T {
 
 func (tc *TestCase[I, E]) RunTest() {
 	if actual := tc.fn(tc.input); !reflect.DeepEqual(actual, tc.expect) {
-		tc.t.Error("失败")
+		tc.t.Errorf("\033[31mFAIL\033[0m | Input: %#v | Response: \033[32m%#v\033[0m | Expect: \033[31m%#v\033[0m", tc.input, actual, tc.expect)
 	} else {
-		tc.t.Log("成功")
+		tc.t.Logf("\033[32mPASS\033[0m | Input: %#v | Response: \033[32m%#v\033[0m | Expect: \033[31m%#v\033[0m", tc.input, actual, tc.expect)
 	}
 }
 
